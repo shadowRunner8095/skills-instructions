@@ -92,6 +92,13 @@ Assert what users observe. Never access `.state`, `.instance()`, private refs, o
 ## Architectural Coupling
 
 ### 3.1 Cross-Module Coupling Violation
+
+```txt
+/
+ |-another-service-b.ts # Have suffered changes
+ |-service-a.ts # Did not suffer changes
+ |-service-a.test.ts # Need to update the test
+```
 If a PR modifies `service-b.ts` and also modifies `service-a.test.ts`, but Service A has no declared import or dependency on Service B — block the PR. This signals global state abuse, unmocked singletons, or leaky abstractions. Do not patch the failing test; isolate the dependency via injection or mocking instead.
 
 ---
